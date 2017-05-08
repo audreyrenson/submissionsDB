@@ -1,2 +1,2 @@
-﻿ C:\Users\rensoa01.NYUMC\AppData\Local\Programs\Python\Python35-32\Scripts\pyinstaller.exe --onefile --hidden-import=pandas 'S:\LMC\Clinical Research\Submissions\Submissions Database 2.0 BACKEND\python_server_request.py'
+﻿ C:\Users\rensoa01\AppData\Local\Programs\Python\Python35-32\Scripts\pyinstaller.exe --onefile --hidden-import=pandas 'S:\LMC\Clinical Research\Submissions\Submissions Database 2.0 BACKEND\python_server_request.py'
  copy .\dist\python_server_request.exe 'S:\LMC\Clinical Research\Submissions\Submissions Database 2.0 BACKEND'
