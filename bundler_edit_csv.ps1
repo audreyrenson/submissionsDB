@@ -1,0 +1,2 @@
+﻿ C:\Users\rensoa01\AppData\Local\Programs\Python\Python35-32\Scripts\pyinstaller.exe --onefile --hidden-import=pandas 'S:\LMC\Clinical Research\Submissions\Submissions Database 2.0 BACKEND\edit_csv.py'
+ copy .\dist\edit_csv.exe 'S:\LMC\Clinical Research\Submissions\Submissions Database 2.0 BACKEND'
