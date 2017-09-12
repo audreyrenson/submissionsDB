@@ -25,7 +25,7 @@ if lastResponse:
 #Setting user Parameters
 apiToken = "YvdlJ7FdzbFdqAZHQxQQMH3oXf4mC3mJAtYdEJm6"
 surveyId = 'SV_ahQbp5LCnOJDVHf'
-fileFormat = 'csv2013'
+fileFormat = 'csv'
 useLabels= 'true'
 
 #Setting static parameters
@@ -80,11 +80,11 @@ filename ='S:/LMC/Clinical Research/Submissions/Submissions Database 2.0 BACKEND
 f = pd.read_csv(filename + ".csv")
 ###select only the columns we want
 f = f[[col for col in f.columns if col.startswith("Q") or col in ['ResponseID','StartDate','EndDate']]]
-####rename them
-##f = f.rename(columns={'V1':'ResponseID','V4':'Q174','V5':'Q173','V8':'EndDate'})
-###drop the first two rows
+##rename them
+f = f.rename(columns={'V1':'ResponseID','V4':'Q174','V5':'Q173','V8':'EndDate'})
+#drop the first two rows
 f = f.drop(f.index[[0]])
-f = f.drop(f.index[[1]])
+f = f.drop(f.index[[0]])
 ##
 ###convert phone numbers and pagers to string
 f['Q311'] = f['Q311'].apply(str)
