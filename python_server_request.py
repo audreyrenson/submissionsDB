@@ -75,47 +75,60 @@ import pandas as pd
 import os
 
 #open the csv file
-dir = os.path.dirname(__file__)
+#dir = os.path.dirname(__file__)
 filename ='S:/LMC/Clinical Research/Submissions/Submissions Database 2.0 BACKEND/TEMPDATA/research abstract and publication submission form'
 f = pd.read_csv(filename + ".csv")
 ###select only the columns we want
-##f = f[[col for col in f.columns if col.startswith("Q") or col in ['V' + n for n in ['1','4','5','8']]]]
+f = f[[col for col in f.columns if col.startswith("Q") or col in ['ResponseID','StartDate','EndDate']]]
 ####rename them
 ##f = f.rename(columns={'V1':'ResponseID','V4':'Q174','V5':'Q173','V8':'EndDate'})
-###drop the first row
-##f = f.drop(f.index[[0]])
+###drop the first two rows
+f = f.drop(f.index[[0]])
+f = f.drop(f.index[[1]])
 ##
 ###convert phone numbers and pagers to string
-##f['Q311'] = f['Q311'].apply(str)
-##f['Q312'] = f['Q312'].apply(str)
-##f['Q321'] = f['Q321'].apply(str)
-##f['Q322'] = f['Q322'].apply(str)
-##
+f['Q311'] = f['Q311'].apply(str)
+f['Q312'] = f['Q312'].apply(str)
+f['Q321'] = f['Q321'].apply(str)
+f['Q322'] = f['Q322'].apply(str)
+
 ###delete 'nan's from phone number fields
-##f.loc[f['Q311'] == 'nan','Q311'] = '--'
-##f.loc[f['Q312'] == 'nan','Q312'] = '--'
-##f.loc[f['Q321'] == 'nan','Q321'] = '--'
-##f.loc[f['Q322'] == 'nan','Q322'] = '--'
+f.loc[f['Q311'] == 'nan','Q311'] = '--'
+f.loc[f['Q312'] == 'nan','Q312'] = '--'
+f.loc[f['Q321'] == 'nan','Q321'] = '--'
+f.loc[f['Q322'] == 'nan','Q322'] = '--'
 ##
 #####replace download urls with the correct url
-####f['Q53'] = f['Q53'].str.replace('s.qualtrics', 'nyumc.qualtrics')
-####f['Q54'] = f['Q54'].str.replace('s.qualtrics', 'nyumc.qualtrics')
+f['Q53_FILE_ID'] = f['Q53_FILE_ID'].str.replace('s.qualtrics', 'nyumc.qualtrics')
+f['Q54_FILE_ID'] = f['Q54_FILE_ID'].str.replace('s.qualtrics', 'nyumc.qualtrics')
+
+###delete unnecessary upload file fields
+del f['Q53_FILE_TYPE']
+del f['Q53_FILE_SIZE']
+del f['Q53_FILE_NAME']
+del f['Q54_FILE_TYPE']
+del f['Q54_FILE_SIZE']
+del f['Q54_FILE_NAME']
+
+###rename file fields to match csv2013
+f = f.rename(columns={'Q53_FILE_ID':'Q53','Q54_FILE_ID':'Q54'})
+
 ##
 ###export to csv
-##f.to_csv(filename + '.csv', index=False)
+f.to_csv(filename + '.csv', index=False)
 ##
 ##
 
-# Run Access Macro
-
-import win32api,time
-from win32com.client import Dispatch
-
-strDbName = 's:/lmc/clinical research/submissions/submissions database 2.0 backend/Submissions Database 2.0_Pre-Deployment.accdb'
-objAccess = Dispatch("Access.Application")
-#objAccess.Visible = True
-objAccess.OpenCurrentDatabase(strDbName)
-objDB = objAccess.CurrentDb()
-objAccess.runMacro('sync')
-#objAccess.Application.Quit()
+### Run Access Macro
+##
+##import win32api,time
+##from win32com.client import Dispatch
+##
+##strDbName = 's:/lmc/clinical research/submissions/submissions database 2.0 backend/Submissions Database 2.0_Pre-Deployment.accdb'
+##objAccess = Dispatch("Access.Application")
+###objAccess.Visible = True
+##objAccess.OpenCurrentDatabase(strDbName)
+##objDB = objAccess.CurrentDb()
+##objAccess.runMacro('sync')
+###objAccess.Application.Quit()
   
